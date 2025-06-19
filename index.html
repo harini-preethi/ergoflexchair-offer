@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ErgoFlex™ Office Chair</title>
-  <meta name="description" content="Buy our ErgoFlex ergonomic office chair for ₹4999. UPI, card, wallet accepted. Secure checkout!" />
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/809/809957.png" />
+  <title>Buy ErgoFlex™ Chair - Offer ₹4999 | Secure Online Checkout</title>
+  <meta name="description" content="Get the ErgoFlex™ Office Chair for just ₹4999! Premium comfort, mesh back, lumbar support, and 360° swivel. Order online with UPI, card, or wallet payments.">
+  <meta name="keywords" content="ErgoFlex Chair, Office Chair India, Buy Chair Online, Ergonomic Chair, Work from Home Chair, Mesh Chair, Best Office Chair, ₹4999 Chair Deal">
+  <meta name="author" content="Alt Ventures">
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" type="image/png" />
 
   <style>
     body {
@@ -41,20 +44,42 @@
       margin-bottom: 1rem;
     }
 
-    label, input {
-      font-size: 1rem;
-      margin: 1rem 0;
+    .spinner-wrapper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+      height: 44px; /* Uniform height */
     }
-
-    input[type="number"] {
+  
+    .spinner-button {
+      background: #f0f0f0;
+      border: none;
+      width: 44px;
+      height: 100%;
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      margin-top: 0;
+    }
+  
+    .spinner-input {
       width: 60px;
       text-align: center;
-      font-size: 1rem;
-      padding: 0.3rem;
-      margin-left: 0.5rem;
+      font-size: 16px;
+      border: none;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      height: 100%;
     }
 
-    button {
+   button {
       margin-top: 1.5rem;
       padding: 0.8rem 2rem;
       font-size: 1rem;
@@ -73,13 +98,17 @@
 <body>
 
   <h1>🪑 ErgoFlex™ Office Chair</h1>
-  <img src="https://ik.imagekit.io/2xkwa8s1i/img/npl_modified_images/Gravita/WSCHRGRAVIHBCBWYWEGYML/Web/WSCHRGRAVIHBCBWYWEGYML_LS_1.jpg?tr=w-2544" alt="ErgoFlex Office Chair"   style="display: block; margin: 20px auto; max-width: 100%; height: auto; border-radius: 10px;" />
+  <img src="https://ik.imagekit.io/2xkwa8s1i/img/npl_modified_images/Gravita/WSCHRGRAVIHBCBWYWEGYML/Web/WSCHRGRAVIHBCBWYWEGYML_LS_1.jpg?tr=w-2544" alt="ErgoFlex Office Chair"/>
   <p>Experience all-day comfort and posture support. High-back mesh design, lumbar support, and 360° swivel.</p>
   <div class="price">₹4999 only</div>
 
-  <div>
-    <label for="qty">Quantity:</label>
-    <input type="number" id="qty" name="qty" min="1" value="1" onchange="updateTotal()" style="appearance: auto; -webkit-appearance: spinner;" />
+  <div style="display: flex; flex-direction: column; align-items: center; margin-top: 1rem;">
+  <label for="spinner" style="margin-bottom: 0.5rem;">Quantity:</label>
+  <div class="spinner-wrapper">
+    <button class="spinner-button" onclick="changeValue(-1)">−</button>
+    <input class="spinner-input" type="number" id="spinner" value="1" min="1" max="10" readonly>
+    <button class="spinner-button" onclick="changeValue(1)">+</button>
+  </div>
   </div>
 
   <p id="total">Total: ₹4999</p>
@@ -89,28 +118,36 @@
   <script>
     const PRICE_PER_UNIT = 4999;
 
+    function changeValue(step) {
+      const input = document.getElementById('spinner');
+      const min = parseInt(input.min);
+      const max = parseInt(input.max);
+      let value = parseInt(input.value || 1);
+      value += step;
+      if (value < min) value = min;
+      if (value > max) value = max;
+      input.value = value;
+      updateTotal();
+    }
+
     function updateTotal() {
-      const qty = parseInt(document.getElementById('qty').value) || 1;
+      const qty = parseInt(document.getElementById('spinner').value) || 1;
       document.getElementById('total').textContent = `Total: ₹${PRICE_PER_UNIT * qty}`;
     }
 
     function payViaLink() {
-      const qty = parseInt(document.getElementById('qty').value) || 1;
+      const qty = parseInt(document.getElementById('spinner').value) || 1;
       const totalAmount = qty * PRICE_PER_UNIT;
-      const whatsappNumber = "919344336374"; // Change to your actual WhatsApp number
+      const whatsappNumber = "919344336374";
       const message = `Hi! I just placed an order for ${qty} ErgoFlex Chair(s) 🪑 (₹${totalAmount}). Looking forward to delivery!`;
       const encodedMsg = encodeURIComponent(message);
+      const paymentLink = "https://rzp.io/l/yourPaymentLink123"; // Replace with your Razorpay link
 
-      // Replace this Razorpay link with your actual payment link
-      const paymentLink = "https://rzp.io/l/yourPaymentLink123";
-
-      // Optionally include quantity in the link with query param if your backend reads it
       window.open(paymentLink, "_blank");
 
-      // Delay WhatsApp redirect slightly to let user complete payment first
       setTimeout(() => {
         window.location.href = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
-      }, 8000); // Adjust delay if needed
+      }, 8000);
     }
 
     updateTotal();
