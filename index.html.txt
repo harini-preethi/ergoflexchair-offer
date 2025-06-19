@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ErgoFlex™ Office Chair</title>
+  <meta name="description" content="Buy our ErgoFlex ergonomic office chair for ₹4999. UPI, card, wallet accepted. Secure checkout!" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/809/809957.png" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f5f5f5;
+      text-align: center;
+      color: #333;
+    }
+
+    img {
+      max-width: 360px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 1rem;
+    }
+
+    h1 {
+      margin: 1rem 0 0.5rem;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    label, input {
+      font-size: 1rem;
+      margin: 1rem 0;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      text-align: center;
+      font-size: 1rem;
+      padding: 0.3rem;
+      margin-left: 0.5rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1abc9c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🪑 ErgoFlex™ Office Chair</h1>
+  <img src="https://ik.imagekit.io/2xkwa8s1i/img/npl_modified_images/Gravita/WSCHRGRAVIHBCBWYWEGYML/Web/WSCHRGRAVIHBCBWYWEGYML_LS_1.jpg?tr=w-2544" alt="ErgoFlex Office Chair" />
+  <p>Experience all-day comfort and posture support. High-back mesh design, lumbar support, and 360° swivel.</p>
+  <div class="price">₹4999 only</div>
+
+  <div>
+    <label for="qty">Quantity:</label>
+    <input type="number" id="qty" name="qty" min="1" value="1" onchange="updateTotal()" />
+  </div>
+
+  <p id="total">Total: ₹4999</p>
+
+  <button onclick="payViaLink()">I'll take that!</button>
+
+  <script>
+    const PRICE_PER_UNIT = 4999;
+
+    function updateTotal() {
+      const qty = parseInt(document.getElementById('qty').value) || 1;
+      document.getElementById('total').textContent = `Total: ₹${PRICE_PER_UNIT * qty}`;
+    }
+
+    function payViaLink() {
+      const qty = parseInt(document.getElementById('qty').value) || 1;
+      const totalAmount = qty * PRICE_PER_UNIT;
+      const whatsappNumber = "919344336374"; // Change to your actual WhatsApp number
+      const message = `Hi! I just placed an order for ${qty} ErgoFlex Chair(s) 🪑 (₹${totalAmount}). Looking forward to delivery!`;
+      const encodedMsg = encodeURIComponent(message);
+
+      // Replace this Razorpay link with your actual payment link
+      const paymentLink = "https://rzp.io/l/yourPaymentLink123";
+
+      // Optionally include quantity in the link with query param if your backend reads it
+      window.open(paymentLink, "_blank");
+
+      // Delay WhatsApp redirect slightly to let user complete payment first
+      setTimeout(() => {
+        window.location.href = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+      }, 8000); // Adjust delay if needed
+    }
+
+    updateTotal();
+  </script>
+
+</body>
+</html>
